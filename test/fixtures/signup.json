@@ -1,0 +1,8 @@
+{
+  "status": "success",
+  "message": "Signup successful",
+  "data": {
+    "phoneNumber": "+2349012345678",
+    "created": "2023-12-02T13:32:35.436Z"
+  }
+}

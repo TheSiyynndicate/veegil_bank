@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "message": "Login successful",
+  "data": {
+    "token": "dummy.veegil.token"
+  }
+}
