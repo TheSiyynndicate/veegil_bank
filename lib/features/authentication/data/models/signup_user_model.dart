@@ -27,7 +27,7 @@ class SignupUserModel extends SignupUserEntity {
 }
 
 class DataModel extends Data {
-  DataModel({required super.phoneNumber, required super.created});
+  const DataModel({required super.phoneNumber, required super.created});
 
   factory DataModel.fromJson(Map<String, dynamic> json) {
     return DataModel(

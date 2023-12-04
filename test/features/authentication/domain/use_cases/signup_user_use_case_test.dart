@@ -3,7 +3,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:veegil_bank/core/use_cases/use_case.dart';
 import 'package:veegil_bank/features/authentication/domain/entities/signup_user_entity.dart';
-import 'package:veegil_bank/features/authentication/domain/repositories/authentication_repository.dart';
+
+import 'package:veegil_bank/features/authentication/domain/repositories/signup_user_repository.dart';
 import 'package:veegil_bank/features/authentication/domain/use_cases/signup_user_use_case.dart';
 
 import 'signup_user_use_case_test.mocks.dart';
@@ -12,10 +13,10 @@ import 'signup_user_use_case_test.mocks.dart';
 
 
 
-@GenerateNiceMocks([MockSpec<AuthenticationRepository>()])
+@GenerateNiceMocks([MockSpec<SignupUserRepository>()])
 void main() {
   late SignupUserUseCase signupUserUseCase;
-  late MockAuthenticationRepository mockAuthenticationRepository;
+  late MockSignupUserRepository mockSignupUserRepository;
 
   final tRequestBody = <String, dynamic>{
     'phoneNumber': '+2349012345678',
@@ -32,15 +33,15 @@ void main() {
   );
 
   setUp(() {
-    mockAuthenticationRepository = MockAuthenticationRepository();
-    signupUserUseCase = SignupUserUseCase(mockAuthenticationRepository);
+    mockSignupUserRepository = MockSignupUserRepository();
+    signupUserUseCase = SignupUserUseCase(mockSignupUserRepository);
   });
 
   test('should successfully return data of type [SignupUserEntity] '
       'from the [AuthenticationRepository]', () async {
     /// arrange
     when(
-      mockAuthenticationRepository.signupUser(
+      mockSignupUserRepository.signupUser(
         signupUserRequestBody: anyNamed('signupUserRequestBody'),
       ),
     ).thenAnswer((realInvocation) async => tSignupUserEntity);
@@ -56,12 +57,12 @@ void main() {
 
     ///
     verify(
-      mockAuthenticationRepository.signupUser(
+      mockSignupUserRepository.signupUser(
         signupUserRequestBody: tRequestBody,
       ),
     );
 
     ///
-    verifyNoMoreInteractions(mockAuthenticationRepository);
+    verifyNoMoreInteractions(mockSignupUserRepository);
   });
 }

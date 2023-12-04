@@ -6,11 +6,9 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:veegil_bank/features/authentication/domain/entities/login_user_entity.dart'
-    as _i5;
 import 'package:veegil_bank/features/authentication/domain/entities/signup_user_entity.dart'
     as _i4;
-import 'package:veegil_bank/features/authentication/domain/repositories/authentication_repository.dart'
+import 'package:veegil_bank/features/authentication/domain/repositories/signup_user_repository.dart'
     as _i2;
 
 // ignore_for_file: type=lint
@@ -26,11 +24,11 @@ import 'package:veegil_bank/features/authentication/domain/repositories/authenti
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [AuthenticationRepository].
+/// A class which mocks [SignupUserRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthenticationRepository extends _i1.Mock
-    implements _i2.AuthenticationRepository {
+class MockSignupUserRepository extends _i1.Mock
+    implements _i2.SignupUserRepository {
   @override
   _i3.Future<_i4.SignupUserEntity?> signupUser(
           {required Map<String, dynamic>? signupUserRequestBody}) =>
@@ -43,17 +41,4 @@ class MockAuthenticationRepository extends _i1.Mock
         returnValue: _i3.Future<_i4.SignupUserEntity?>.value(),
         returnValueForMissingStub: _i3.Future<_i4.SignupUserEntity?>.value(),
       ) as _i3.Future<_i4.SignupUserEntity?>);
-
-  @override
-  _i3.Future<_i5.LoginUserEntity?> loginUser(
-          {required Map<String, dynamic>? loginUserRequestBody}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #loginUser,
-          [],
-          {#loginUserRequestBody: loginUserRequestBody},
-        ),
-        returnValue: _i3.Future<_i5.LoginUserEntity?>.value(),
-        returnValueForMissingStub: _i3.Future<_i5.LoginUserEntity?>.value(),
-      ) as _i3.Future<_i5.LoginUserEntity?>);
 }
