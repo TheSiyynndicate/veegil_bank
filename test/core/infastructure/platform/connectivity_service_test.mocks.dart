@@ -5,9 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:connectivity_plus/connectivity_plus.dart' as _i2;
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
-    as _i4;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -23,27 +22,54 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [Connectivity].
+class _FakeDuration_0 extends _i1.SmartFake implements Duration {
+  _FakeDuration_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [InternetConnection].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConnectivity extends _i1.Mock implements _i2.Connectivity {
+class MockInternetConnection extends _i1.Mock
+    implements _i2.InternetConnection {
   @override
-  _i3.Stream<_i4.ConnectivityResult> get onConnectivityChanged =>
-      (super.noSuchMethod(
-        Invocation.getter(#onConnectivityChanged),
-        returnValue: _i3.Stream<_i4.ConnectivityResult>.empty(),
-        returnValueForMissingStub: _i3.Stream<_i4.ConnectivityResult>.empty(),
-      ) as _i3.Stream<_i4.ConnectivityResult>);
+  Duration get checkInterval => (super.noSuchMethod(
+        Invocation.getter(#checkInterval),
+        returnValue: _FakeDuration_0(
+          this,
+          Invocation.getter(#checkInterval),
+        ),
+        returnValueForMissingStub: _FakeDuration_0(
+          this,
+          Invocation.getter(#checkInterval),
+        ),
+      ) as Duration);
 
   @override
-  _i3.Future<_i4.ConnectivityResult> checkConnectivity() => (super.noSuchMethod(
-        Invocation.method(
-          #checkConnectivity,
-          [],
-        ),
-        returnValue: _i3.Future<_i4.ConnectivityResult>.value(
-            _i4.ConnectivityResult.bluetooth),
-        returnValueForMissingStub: _i3.Future<_i4.ConnectivityResult>.value(
-            _i4.ConnectivityResult.bluetooth),
-      ) as _i3.Future<_i4.ConnectivityResult>);
+  _i3.Future<bool> get hasInternetAccess => (super.noSuchMethod(
+        Invocation.getter(#hasInternetAccess),
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
+
+  @override
+  _i3.Future<_i2.InternetStatus> get internetStatus => (super.noSuchMethod(
+        Invocation.getter(#internetStatus),
+        returnValue:
+            _i3.Future<_i2.InternetStatus>.value(_i2.InternetStatus.connected),
+        returnValueForMissingStub:
+            _i3.Future<_i2.InternetStatus>.value(_i2.InternetStatus.connected),
+      ) as _i3.Future<_i2.InternetStatus>);
+
+  @override
+  _i3.Stream<_i2.InternetStatus> get onStatusChange => (super.noSuchMethod(
+        Invocation.getter(#onStatusChange),
+        returnValue: _i3.Stream<_i2.InternetStatus>.empty(),
+        returnValueForMissingStub: _i3.Stream<_i2.InternetStatus>.empty(),
+      ) as _i3.Stream<_i2.InternetStatus>);
 }

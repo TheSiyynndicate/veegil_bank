@@ -43,7 +43,7 @@ void main() {
   group('when the device is online', () {
     test(
         'should return data of type [SignupUserModel] '
-        'when the status code of the response 200', () {
+        'when the status code of the response 200', () async {
       /// arrange
       final tSignupUserModel = SignupUserModel.fromJson(
           json.decode(fixture('signup.json')) as Map<String, dynamic>);
@@ -61,11 +61,15 @@ void main() {
       when(mockConnectivityService.isConnected())
           .thenAnswer((realInvocation) async => true);
 
-      final result = signupUserRepositoryImpl
+      final result = await signupUserRepositoryImpl
           .signupUser(signupUserRequestBody: <String, dynamic>{});
 
       /// assert
+      expect(result, tSignupUserModel);
+
       verify(mockSignupDataSource.signupUser(any));
+
+
 
 
     });

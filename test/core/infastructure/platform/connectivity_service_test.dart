@@ -1,45 +1,46 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:flutter_test/flutter_test.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:veegil_bank/core/infastructure/platform/connectivity_service.dart';
 
 import 'connectivity_service_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<Connectivity>()])
+@GenerateNiceMocks([MockSpec<InternetConnection>()])
 void main() {
-  late MockConnectivity mockConnectivity;
+  late MockInternetConnection mockInternetConnection;
   late ConnectivityServiceImpl connectivityServiceImpl;
 
   setUp(() {
-    mockConnectivity = MockConnectivity();
-    connectivityServiceImpl = ConnectivityServiceImpl(mockConnectivity);
+    mockInternetConnection = MockInternetConnection();
+    connectivityServiceImpl = ConnectivityServiceImpl(mockInternetConnection);
   });
   group('isConnected', () {
     test('should return true when mobile data is turned on', () async {
       /// arrange
       const tHasConnection = true;
-      when(mockConnectivity.checkConnectivity())
-          .thenAnswer((realInvocation) async => ConnectivityResult.mobile);
+      when(mockInternetConnection.hasInternetAccess)
+          .thenAnswer((realInvocation) async => true);
 
       /// act
       final result = await connectivityServiceImpl.isConnected();
 
       /// assert
-      verify(mockConnectivity.checkConnectivity());
+      verify(mockInternetConnection.hasInternetAccess);
       expect(result, tHasConnection);
     });
     test('should return false when mobile data is turned off', () async {
       /// arrange
       const tHasConnection = false;
-      when(mockConnectivity.checkConnectivity())
-          .thenAnswer((realInvocation) async => ConnectivityResult.none);
+      when(mockInternetConnection.hasInternetAccess)
+          .thenAnswer((realInvocation) async => false);
 
       /// act
       final result = await connectivityServiceImpl.isConnected();
 
       /// assert
-      verify(mockConnectivity.checkConnectivity());
+      verify(mockInternetConnection.hasInternetAccess);
       expect(result, tHasConnection);
     });
   });

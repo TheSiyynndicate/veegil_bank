@@ -15,6 +15,7 @@ class SignupUserRepositoryImpl implements SignupUserRepository {
   @override
   Future<SignupUserEntity?> signupUser(
       {required Map<String, dynamic> signupUserRequestBody}) async {
+
     final isConnected = await connectivityService.isConnected();
 
     if (isConnected) {
