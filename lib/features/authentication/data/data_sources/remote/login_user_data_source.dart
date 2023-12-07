@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:veegil_bank/core/constants/api_endpoint_constants.dart';
 import 'package:veegil_bank/core/constants/exception_message_constants.dart';
 import 'package:veegil_bank/core/exceptions/authentication_exception.dart';
@@ -9,13 +10,14 @@ abstract class LoginUserDataSource {
   Future<LoginUserModel> loginUser(Map<String, dynamic> loginRequestBody);
 }
 
+@Injectable(as: LoginUserDataSource)
 class LoginUserDataSourceImpl implements LoginUserDataSource {
-  final DioClient dioClient;
+  final ClientGenerator clientGenerator;
 
   @override
   Future<LoginUserModel> loginUser(
       Map<String, dynamic> loginRequestBody) async {
-    final response = await dioClient.post(sl<ApiEndpointConstants>().login,
+    final response = await clientGenerator.post(sl<ApiEndpointConstants>().login,
         requestBody: loginRequestBody);
 
     if (response?.statusCode == 200) {
@@ -27,5 +29,5 @@ class LoginUserDataSourceImpl implements LoginUserDataSource {
     }
   }
 
-  LoginUserDataSourceImpl(this.dioClient);
+  LoginUserDataSourceImpl(this.clientGenerator);
 }

@@ -7,7 +7,7 @@ abstract class ApiEndpointConstants{
   String get signup;
 }
 
-@LazySingleton()
+@LazySingleton(as: ApiEndpointConstants)
 class ApiConstants implements ApiEndpointConstants{
   @override
   String get baseUrl =>  'https://bankapi.veegil.com';

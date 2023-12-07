@@ -7,40 +7,40 @@ import 'package:veegil_bank/core/infastructure/platform/connectivity_service.dar
 
 import 'connectivity_service_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<InternetConnection>()])
+@GenerateNiceMocks([MockSpec<InternetChecker>()])
 void main() {
-  late MockInternetConnection mockInternetConnection;
+  late MockInternetChecker mockInternetChecker;
   late ConnectivityServiceImpl connectivityServiceImpl;
 
   setUp(() {
-    mockInternetConnection = MockInternetConnection();
-    connectivityServiceImpl = ConnectivityServiceImpl(mockInternetConnection);
+    mockInternetChecker = MockInternetChecker();
+    connectivityServiceImpl = ConnectivityServiceImpl(mockInternetChecker);
   });
   group('isConnected', () {
     test('should return true when mobile data is turned on', () async {
       /// arrange
       const tHasConnection = true;
-      when(mockInternetConnection.hasInternetAccess)
+      when(mockInternetChecker.isInternetAvailable())
           .thenAnswer((realInvocation) async => true);
 
       /// act
       final result = await connectivityServiceImpl.isConnected();
 
       /// assert
-      verify(mockInternetConnection.hasInternetAccess);
+      verify(mockInternetChecker.isInternetAvailable());
       expect(result, tHasConnection);
     });
     test('should return false when mobile data is turned off', () async {
       /// arrange
       const tHasConnection = false;
-      when(mockInternetConnection.hasInternetAccess)
+      when(mockInternetChecker.isInternetAvailable())
           .thenAnswer((realInvocation) async => false);
 
       /// act
       final result = await connectivityServiceImpl.isConnected();
 
       /// assert
-      verify(mockInternetConnection.hasInternetAccess);
+      verify(mockInternetChecker.isInternetAvailable());
       expect(result, tHasConnection);
     });
   });

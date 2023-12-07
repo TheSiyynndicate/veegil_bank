@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
+
+
 abstract interface class ConnectivityService {
   Future<bool> isConnected();
 }
@@ -9,10 +11,20 @@ abstract interface class ConnectivityService {
 class ConnectivityServiceImpl implements ConnectivityService {
 
 
-  ConnectivityServiceImpl(@factoryParam this.internetConnection);
+  ConnectivityServiceImpl(this.internetChecker);
 
-  final InternetConnection internetConnection;
+  final InternetChecker internetChecker;
 
   @override
-  Future<bool> isConnected() async => internetConnection.hasInternetAccess;
+  Future<bool> isConnected() async => internetChecker.isInternetAvailable();
+}
+
+abstract class InternetChecker{
+  Future<bool> isInternetAvailable();
+}
+
+@Injectable(as: InternetChecker)
+class InternetCheckerImpl implements InternetChecker{
+  @override
+  Future<bool> isInternetAvailable() => InternetConnection().hasInternetAccess;
 }

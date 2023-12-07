@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:veegil_bank/core/constants/api_endpoint_constants.dart';
 import 'package:veegil_bank/core/constants/exception_message_constants.dart';
 import 'package:veegil_bank/core/exceptions/authentication_exception.dart';
@@ -9,6 +10,7 @@ abstract class SignupDataSource {
   Future<SignupUserModel?> signupUser(Map<String, dynamic> signupRequestBody);
 }
 
+@Injectable(as: SignupDataSource)
 class SignupDataSourceImpl implements SignupDataSource {
   final ClientGenerator clientGenerator;
 

@@ -3,9 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:dio/dio.dart' as _i4;
+import 'package:dio/dio.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:veegil_bank/core/network/client_generator/client_generator.dart'
     as _i2;
@@ -28,19 +28,21 @@ import 'package:veegil_bank/core/network/client_generator/client_generator.dart'
 /// See the documentation for Mockito's code generation for more information.
 class MockDioClient extends _i1.Mock implements _i2.DioClient {
   @override
-  Map<String, dynamic> get headers => (super.noSuchMethod(
-        Invocation.getter(#headers),
-        returnValue: <String, dynamic>{},
-        returnValueForMissingStub: <String, dynamic>{},
-      ) as Map<String, dynamic>);
+  set dio(_i3.Dio? _dio) => super.noSuchMethod(
+        Invocation.setter(
+          #dio,
+          _dio,
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
-  _i3.Future<_i4.Response<dynamic>?> get(
+  _i4.Future<_i3.Response<dynamic>?> get(
     String? endpoint, {
     Map<String, dynamic>? queryParameters,
-    _i4.Options? options,
-    _i4.CancelToken? cancelToken,
-    _i4.ProgressCallback? onReceiveProgress,
+    _i3.Options? options,
+    _i3.CancelToken? cancelToken,
+    _i3.ProgressCallback? onReceiveProgress,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -53,17 +55,17 @@ class MockDioClient extends _i1.Mock implements _i2.DioClient {
             #onReceiveProgress: onReceiveProgress,
           },
         ),
-        returnValue: _i3.Future<_i4.Response<dynamic>?>.value(),
-        returnValueForMissingStub: _i3.Future<_i4.Response<dynamic>?>.value(),
-      ) as _i3.Future<_i4.Response<dynamic>?>);
+        returnValue: _i4.Future<_i3.Response<dynamic>?>.value(),
+        returnValueForMissingStub: _i4.Future<_i3.Response<dynamic>?>.value(),
+      ) as _i4.Future<_i3.Response<dynamic>?>);
 
   @override
-  _i3.Future<_i4.Response<dynamic>?> post(
+  _i4.Future<_i3.Response<dynamic>?> post(
     String? endpoint, {
     Map<String, dynamic>? requestBody,
-    _i4.Options? options,
-    _i4.CancelToken? cancelToken,
-    _i4.ProgressCallback? onReceiveProgress,
+    _i3.Options? options,
+    _i3.CancelToken? cancelToken,
+    _i3.ProgressCallback? onReceiveProgress,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -76,7 +78,7 @@ class MockDioClient extends _i1.Mock implements _i2.DioClient {
             #onReceiveProgress: onReceiveProgress,
           },
         ),
-        returnValue: _i3.Future<_i4.Response<dynamic>?>.value(),
-        returnValueForMissingStub: _i3.Future<_i4.Response<dynamic>?>.value(),
-      ) as _i3.Future<_i4.Response<dynamic>?>);
+        returnValue: _i4.Future<_i3.Response<dynamic>?>.value(),
+        returnValueForMissingStub: _i4.Future<_i3.Response<dynamic>?>.value(),
+      ) as _i4.Future<_i3.Response<dynamic>?>);
 }

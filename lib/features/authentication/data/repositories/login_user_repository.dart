@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:veegil_bank/core/constants/exception_message_constants.dart';
 
 import 'package:veegil_bank/core/exceptions/network_exception.dart';
@@ -7,6 +8,7 @@ import 'package:veegil_bank/features/authentication/data/data_sources/remote/log
 import 'package:veegil_bank/features/authentication/domain/entities/login_user_entity.dart';
 import 'package:veegil_bank/features/authentication/domain/repositories/login_user_repository.dart';
 
+@Injectable(as: LoginUserRepository)
 class LoginUserRepositoryImpl implements LoginUserRepository {
   LoginUserRepositoryImpl(this.loginUserDataSource, this.connectivityService);
 

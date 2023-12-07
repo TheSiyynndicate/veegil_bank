@@ -48,10 +48,11 @@ class ExceptionInterceptor extends Interceptor {
         );
 
       case DioExceptionType.unknown:
-        throw NetworkException(
-          exceptionMessage:
-          sl<ExceptionsErrorMessagesConstants>().networkExceptionSlowInternet,
-        );
+  handler.next(err);
+ 
+
+
+
     }
   }
 

@@ -25,14 +25,14 @@ abstract class ClientGenerator {
 
 ///Used to make network request
 ///and receive response
-@LazySingleton()
+@LazySingleton(as: ClientGenerator)
 class DioClient implements ClientGenerator {
   /// injecting dio instance
-  DioClient({required this.headers}) {
+  @factoryMethod
+  DioClient() {
     dio = Dio(
       BaseOptions(
         baseUrl: sl<ApiEndpointConstants>().baseUrl,
-        headers: headers,
         connectTimeout: const Duration(seconds: 10),
       ),
     );
@@ -42,10 +42,8 @@ class DioClient implements ClientGenerator {
   }
 
   /// [dio] instance
-  static Dio? dio;
+  Dio? dio;
 
-  ///
-  final Map<String, dynamic> headers;
 
   /// Get:---------------------------------------------------------------------
   @override

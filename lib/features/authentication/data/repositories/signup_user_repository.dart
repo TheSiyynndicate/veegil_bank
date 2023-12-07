@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:veegil_bank/core/constants/exception_message_constants.dart';
 import 'package:veegil_bank/core/exceptions/network_exception.dart';
 import 'package:veegil_bank/core/infastructure/platform/connectivity_service.dart';
@@ -6,6 +7,7 @@ import 'package:veegil_bank/features/authentication/data/data_sources/remote/sig
 import 'package:veegil_bank/features/authentication/domain/entities/signup_user_entity.dart';
 import 'package:veegil_bank/features/authentication/domain/repositories/signup_user_repository.dart';
 
+@Injectable(as: SignupUserRepository)
 class SignupUserRepositoryImpl implements SignupUserRepository {
   SignupUserRepositoryImpl(this.connectivityService, this.signupDataSource);
 

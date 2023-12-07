@@ -8,6 +8,7 @@ abstract class ExceptionsErrorMessagesConstants {
   ///for NetworkException
   String get networkExceptionSlowInternet;
 
+
   ///for NetworkException
   String get networkExceptionNoInternet;
 
@@ -38,8 +39,8 @@ abstract class ExceptionsErrorMessagesConstants {
   String get authenticationExceptionAlreadyRegistered;
 }
 
-@LazySingleton()
-class ExceptionConstants implements ExceptionsErrorMessagesConstants {
+@LazySingleton(as: ExceptionsErrorMessagesConstants)
+class ExceptionConstants implements  ExceptionsErrorMessagesConstants{
   @override
   String get networkExceptionSlowInternet =>
       'You have a slow Internet connection';
