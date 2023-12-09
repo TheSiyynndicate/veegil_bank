@@ -37,6 +37,15 @@ abstract class ExceptionsErrorMessagesConstants {
 
   /// for AuthenticationException
   String get authenticationExceptionAlreadyRegistered;
+
+  /// for TransactionException
+  String get transactionExceptionWithdrawalNotEnoughCredits;
+
+  /// for TransactionException
+  String get transactionExceptionTransferNotEnoughCredits;
+
+  /// for TransactionException
+  String get transactionExceptionFailed;
 }
 
 @LazySingleton(as: ExceptionsErrorMessagesConstants)
@@ -76,4 +85,15 @@ class ExceptionConstants implements  ExceptionsErrorMessagesConstants{
   @override
   String get authenticationExceptionAlreadyRegistered =>
       'The user already exists';
+
+  @override
+  String get transactionExceptionFailed => 'Transaction failed.';
+
+  @override
+  String get transactionExceptionTransferNotEnoughCredits =>
+      'Transfer failed, not enough credits.';
+
+  @override
+  String get transactionExceptionWithdrawalNotEnoughCredits =>
+      'Withdrawal failed, not enough credits.';
 }

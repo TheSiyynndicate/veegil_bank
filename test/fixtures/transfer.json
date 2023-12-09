@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "message": "transfer successful",
+  "data": {
+    "sent": 200
+  }
+}

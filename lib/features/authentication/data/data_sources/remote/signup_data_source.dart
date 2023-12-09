@@ -19,13 +19,22 @@ class SignupDataSourceImpl implements SignupDataSource {
   @override
   Future<SignupUserModel?> signupUser(
       Map<String, dynamic> signupRequestBody) async {
+
     final response = await clientGenerator.post(
         sl<ApiEndpointConstants>().signup,
-        requestBody: signupRequestBody);
+        requestBody: signupRequestBody,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Connection': 'keep-alive',
+          'Host':'<calculated when request is sent>'
+        }
+        );
 
     if (response?.statusCode == 200) {
       return SignupUserModel.fromJson(response?.data as Map<String, dynamic>);
     } else {
+
       throw AuthenticationException(
           exceptionMessage: response?.statusCode == 400
               ? sl<ExceptionsErrorMessagesConstants>()

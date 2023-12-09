@@ -13,48 +13,52 @@ class ExceptionInterceptor extends Interceptor {
       ) {
     switch (err.type) {
       case DioExceptionType.connectionTimeout:
+        handler.resolve(err.response!);
         throw NetworkException(
           exceptionMessage:
           sl<ExceptionsErrorMessagesConstants>().networkExceptionSlowInternet,
         );
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      handler.resolve(err.response!);
         throw NetworkException(
           exceptionMessage:
           sl<ExceptionsErrorMessagesConstants>().networkExceptionApiException,
         );
       case DioExceptionType.badCertificate:
+        handler.resolve(err.response!);
         throw NetworkException(
           exceptionMessage:
           sl<ExceptionsErrorMessagesConstants>().networkExceptionBadResponse,
         );
 
       case DioExceptionType.badResponse:
+        handler.resolve(err.response!);
         throw NetworkException(
           exceptionMessage:
           sl<ExceptionsErrorMessagesConstants>().networkExceptionBadResponse,
         );
 
       case DioExceptionType.cancel:
+        handler.resolve(err.response!);
         throw NetworkException(
-          exceptionMessage:
-          sl<ExceptionsErrorMessagesConstants>().networkExceptionRequestCancelled,
+          exceptionMessage: sl<ExceptionsErrorMessagesConstants>()
+              .networkExceptionRequestCancelled,
         );
 
       case DioExceptionType.connectionError:
+        handler.resolve(err.response!);
         throw NetworkException(
-          exceptionMessage:
-          sl<ExceptionsErrorMessagesConstants>().networkExceptionApiException,
+          exceptionMessage: sl<ExceptionsErrorMessagesConstants>()
+              .networkExceptionApiException,
         );
 
       case DioExceptionType.unknown:
-  handler.next(err);
- 
-
-
-
+        handler.resolve(err.response!);
+        throw NetworkException(
+          exceptionMessage:
+              sl<ExceptionsErrorMessagesConstants>().networkExceptionUnknown,
+        );
     }
   }
-
-
 }

@@ -5,6 +5,7 @@ abstract class ApiEndpointConstants{
   String get baseUrl;
   String get login;
   String get signup;
+  String get transfer;
 }
 
 @LazySingleton(as: ApiEndpointConstants)
@@ -17,4 +18,7 @@ class ApiConstants implements ApiEndpointConstants{
 
   @override
   String get signup => '/auth/signup';
+
+  @override
+  String get transfer => '/accounts/transfer';
 }

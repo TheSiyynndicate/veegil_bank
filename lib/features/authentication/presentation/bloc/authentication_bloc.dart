@@ -1,15 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:veegil_bank/core/exceptions/authentication_exception.dart';
 import 'package:veegil_bank/core/exceptions/network_exception.dart';
-
 import 'package:veegil_bank/features/authentication/domain/repositories/login_user_repository.dart';
 import 'package:veegil_bank/features/authentication/domain/repositories/signup_user_repository.dart';
 
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 @Singleton()
@@ -44,10 +43,11 @@ class AuthenticationBloc
         emit(AuthenticationStateSuccessful());
       } on NetworkException catch (exception) {
 
-        emit(AuthenticationStateError());
-
+        emit(AuthenticationStateError(exception.exceptionMessage));
       } on AuthenticationException catch (exception) {
-        emit(AuthenticationStateError());
+        emit(AuthenticationStateError(exception.exceptionMessage!));
+      }on DioException catch (exception) {
+        emit(AuthenticationStateError(exception.message!));
       }
     });
   }

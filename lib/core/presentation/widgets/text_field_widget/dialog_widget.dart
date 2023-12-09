@@ -3,7 +3,7 @@ import 'package:veegil_bank/core/constants/app_color_constants.dart';
 import 'package:veegil_bank/core/presentation/widgets/text_field_widget/button_widget.dart';
 import 'package:veegil_bank/core/service_locator.dart';
 
-Future<void> showMyDialog(
+Future<void> showDialogWidget(
     {required BuildContext context, required String message}) async {
   return showDialog<void>(
     context: context,

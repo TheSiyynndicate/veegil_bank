@@ -14,15 +14,16 @@ import 'package:veegil_bank/features/authentication/data/models/login_user_model
 import '../../../../../fixtures/fixture_reader.dart';
 import 'login_user_data_source_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<DioClient>()])
+
+@GenerateNiceMocks([MockSpec<ClientGenerator>()])
 void main() {
   late LoginUserDataSourceImpl loginUserDataSourceImpl;
-  late MockDioClient mockDioClient;
+  late MockClientGenerator mockClientGenerator;
   late GetIt getIt;
 
   setUp(() {
-    mockDioClient = MockDioClient();
-    loginUserDataSourceImpl = LoginUserDataSourceImpl(mockDioClient);
+    mockClientGenerator = MockClientGenerator();
+    loginUserDataSourceImpl = LoginUserDataSourceImpl(mockClientGenerator);
   });
 
   setUpAll(() {
@@ -48,14 +49,14 @@ void main() {
       final tLoginUserModel = LoginUserModel.fromJson(tLoginJsonData);
 
       /// act
-      when(mockDioClient.post(getIt<ApiEndpointConstants>().login,
+      when(mockClientGenerator.post(getIt<ApiEndpointConstants>().login,
               requestBody: anyNamed('requestBody')))
           .thenAnswer((realInvocation) async => tResponse);
 
       final result = await loginUserDataSourceImpl.loginUser({});
 
       /// assert
-      verify(mockDioClient.post(getIt<ApiEndpointConstants>().login,
+      verify(mockClientGenerator.post(getIt<ApiEndpointConstants>().login,
           requestBody: <String, dynamic>{}));
 
       expect(

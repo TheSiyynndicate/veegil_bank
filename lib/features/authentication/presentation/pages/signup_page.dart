@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:veegil_bank/core/constants/asset_constants.dart';
+import 'package:veegil_bank/core/constants/route_constants.dart';
 import 'package:veegil_bank/core/presentation/widgets/text_field_widget/button_widget.dart';
+import 'package:veegil_bank/core/presentation/widgets/text_field_widget/dialog_widget.dart';
 import 'package:veegil_bank/core/presentation/widgets/text_field_widget/loading_widget.dart';
 import 'package:veegil_bank/core/presentation/widgets/text_field_widget/widgets/text_field_widget.dart';
 import 'package:veegil_bank/core/service_locator.dart';
@@ -67,7 +69,8 @@ class SignupPage extends StatelessWidget {
                     if (state is AuthenticationStateSuccessful) {
                       Navigator.pushNamed(context, 'Dash');
                     } else if (state is AuthenticationStateError) {
-
+                      unawaited(showDialogWidget(
+                          context: context, message: state.message));
                     } else if (state is AuthenticationStateLoading) {
                       unawaited(showLoader(context: context));
                     }
@@ -84,8 +87,10 @@ class SignupPage extends StatelessWidget {
                   },
                   child: ButtonWidget(
                       label: 'Sign Up',
-                      onPressed: () => sl<AuthenticationBloc>()
-                          .add(AuthenticationEventSignup())),
+                      onPressed: () =>Navigator.pushNamed(context, sl<RouteConstants>().dashboardPage)
+                          // sl<AuthenticationBloc>()
+                          // .add(AuthenticationEventSignup())
+                  ),
                 )
               ],
             ),

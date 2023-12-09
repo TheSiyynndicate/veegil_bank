@@ -34,10 +34,11 @@ class TopTabWidget extends StatelessWidget {
               Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Center(child: Text('Sign Up', style: TextStyle(
-                  color: sl<AppColorConstants>().white,
-                ),)),
-                Text('Login'),
+                Center(child: Text('Sign Up', style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: sl<AppColorConstants>().white
+                ))
+                ),
+                Text('Login', style: Theme.of(context).textTheme.labelSmall),
               ],
             )
           ],

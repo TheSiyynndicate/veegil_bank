@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:veegil_bank/core/constants/api_endpoint_constants.dart';
-import 'package:veegil_bank/core/network/client_generator/exception_interceptor.dart';
 import 'package:veegil_bank/core/service_locator.dart';
 
 abstract class ClientGenerator {
@@ -17,6 +16,7 @@ abstract class ClientGenerator {
   Future<Response<dynamic>?> post(
     String endpoint, {
     Map<String, dynamic>? requestBody,
+    Map<String, dynamic>? headers,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
@@ -29,21 +29,16 @@ abstract class ClientGenerator {
 class DioClient implements ClientGenerator {
   /// injecting dio instance
   @factoryMethod
-  DioClient() {
-    dio = Dio(
-      BaseOptions(
-        baseUrl: sl<ApiEndpointConstants>().baseUrl,
-        connectTimeout: const Duration(seconds: 10),
-      ),
-    );
-    dio?.interceptors.add(ExceptionInterceptor());
-    dio?.interceptors
-        .add(PrettyDioLogger(requestBody: true, responseHeader: true));
-  }
+  DioClient();
 
   /// [dio] instance
-  Dio? dio;
-
+  Dio dio = Dio(BaseOptions(
+    baseUrl: sl<ApiEndpointConstants>().baseUrl,
+    connectTimeout: const Duration(seconds: 10),
+  ))
+    // ..interceptors.add(ExceptionInterceptor())
+    ..interceptors.add(PrettyDioLogger(
+        requestBody: true, responseHeader: true, requestHeader: true));
 
   /// Get:---------------------------------------------------------------------
   @override
@@ -54,7 +49,7 @@ class DioClient implements ClientGenerator {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final response = await dio!.get<dynamic>(
+    final response = await dio.get<dynamic>(
       endpoint,
       queryParameters: queryParameters,
       options: options,
@@ -67,10 +62,14 @@ class DioClient implements ClientGenerator {
   @override
   Future<Response?> post(String endpoint,
       {Map<String, dynamic>? requestBody,
+      Map<String, dynamic>? headers,
       Options? options,
       CancelToken? cancelToken,
       ProgressCallback? onReceiveProgress}) async {
-    final response = await dio!.post<dynamic>(
+
+      dio.options.headers = headers;
+
+    final response = await dio.post<dynamic>(
       endpoint,
       data: requestBody,
       options: options,
@@ -78,5 +77,8 @@ class DioClient implements ClientGenerator {
       onReceiveProgress: onReceiveProgress,
     );
     return response;
+
+
+
   }
 }

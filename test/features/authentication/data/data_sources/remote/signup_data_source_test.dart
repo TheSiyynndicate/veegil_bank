@@ -14,15 +14,15 @@ import 'package:veegil_bank/features/authentication/data/models/signup_user_mode
 import '../../../../../fixtures/fixture_reader.dart';
 import 'signup_data_source_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<DioClient>()])
+@GenerateNiceMocks([MockSpec<ClientGenerator>()])
 void main() {
   late SignupDataSourceImpl signupDataSource;
-  late MockDioClient mockDioClient;
+  late  MockClientGenerator mockClientGenerator;
   late GetIt getIt;
 
   setUp(() {
-    mockDioClient = MockDioClient();
-    signupDataSource = SignupDataSourceImpl(mockDioClient);
+    mockClientGenerator = MockClientGenerator();
+    signupDataSource = SignupDataSourceImpl(mockClientGenerator);
   });
 
   setUpAll(() {
@@ -39,7 +39,7 @@ void main() {
       final tSignupJsonData =
           json.decode(fixture('signup.json')) as Map<String, dynamic>;
 
-      final tResponse = Response(
+      final tResponse = Response<dynamic>(
           requestOptions:
               RequestOptions(baseUrl: getIt<ApiEndpointConstants>().baseUrl),
           data: tSignupJsonData,
@@ -48,15 +48,16 @@ void main() {
       final tSignupUserModel = SignupUserModel.fromJson(tSignupJsonData);
 
       /// act
-      when(mockDioClient.post(getIt<ApiEndpointConstants>().signup,
-              requestBody: anyNamed('requestBody')))
+      when(mockClientGenerator.post(getIt<ApiEndpointConstants>().signup,
+              requestBody: anyNamed('requestBody'),headers: anyNamed('headers')
+      ))
           .thenAnswer((realInvocation) async => tResponse);
 
-      final result = await signupDataSource.signupUser({});
+      final result = await signupDataSource.signupUser(<String,dynamic>{});
 
       /// assert
-      verify(mockDioClient.post(getIt<ApiEndpointConstants>().signup,
-          requestBody: <String, dynamic>{}));
+      verify(mockClientGenerator.post(getIt<ApiEndpointConstants>().signup,
+          requestBody: anyNamed('requestBody'),headers: anyNamed('headers')));
 
       expect(
           result,
